@@ -10,11 +10,11 @@
     <!-- Babel for in-browser JSX/TSX transformation -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-    <!-- Polyfill for process.env to prevent crashes -->
+    <!-- Polyfill for process.env -->
     <script>
       window.process = {
         env: {
-          API_KEY: '' // Note: AI features will require a key here or a proper build setup
+          API_KEY: '' 
         }
       };
     </script>
@@ -72,7 +72,7 @@
       .font-serif {
         font-family: 'Playfair Display', serif;
       }
-      /* Subtle noise texture for paper-like feel */
+      /* Subtle noise texture */
       .bg-noise {
         position: fixed;
         top: 0;
@@ -86,7 +86,7 @@
       }
     </style>
     
-    <!-- Import Map using standard ESM CDNs -->
+    <!-- Import Map -->
     <script type="importmap">
 {
   "imports": {
@@ -103,7 +103,7 @@
   <body class="bg-stone-50 min-h-screen selection:bg-stone-200 selection:text-stone-900">
     <div class="bg-noise"></div>
     <div id="root"></div>
-    <!-- Note: type="text/babel" is crucial for in-browser transpilation -->
-    <script type="text/babel" data-presets="react,typescript" data-type="module" src="./index.tsx"></script>
+    <!-- Load the single monolithic file -->
+    <script type="text/babel" data-presets="react,typescript" src="./index.tsx"></script>
   </body>
 </html>

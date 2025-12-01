@@ -16,12 +16,15 @@ import {
 } from 'lucide-react';
 import { GoogleGenAI } from "@google/genai";
 
-// --- TYPES ---
+// -----------------------------------------------------------------------------
+// TYPES
+// -----------------------------------------------------------------------------
+
 export interface SocialLinkProps {
   label: string;
   url: string;
   icon: LucideIcon;
-  colorClass: string;
+  colorClass: string; // Kept for interface compatibility, though unused in new UI
   description?: string;
 }
 
@@ -32,15 +35,23 @@ export enum LoadingState {
   ERROR = 'ERROR'
 }
 
-// --- SERVICES ---
+// -----------------------------------------------------------------------------
+// SERVICES
+// -----------------------------------------------------------------------------
 
 /**
  * Generates a nail art image based on a user prompt using Gemini 2.5 Flash Image.
  */
-export const generateNailArtImage = async (prompt: string): Promise<string | null> => {
+const generateNailArtImage = async (prompt: string): Promise<string | null> => {
   try {
-    // Initialize Gemini API Client inside the function
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    // Initialize Gemini API Client inside the function to avoid init errors
+    const apiKey = process.env.API_KEY || ''; 
+    if (!apiKey) {
+        console.warn("API Key is missing. AI features will not work.");
+        return null;
+    }
+
+    const ai = new GoogleGenAI({ apiKey });
 
     const fullPrompt = `Professional nail art design, macro photography style, high resolution, realistic texture. The design should be: ${prompt}`;
 
@@ -78,7 +89,9 @@ export const generateNailArtImage = async (prompt: string): Promise<string | nul
   }
 };
 
-// --- COMPONENTS ---
+// -----------------------------------------------------------------------------
+// COMPONENTS
+// -----------------------------------------------------------------------------
 
 const SocialButton: React.FC<SocialLinkProps> = ({ label, url, icon: Icon, description }) => {
   return (
@@ -230,6 +243,10 @@ const NailDesignGenerator: React.FC = () => {
   );
 };
 
+// -----------------------------------------------------------------------------
+// APP DATA
+// -----------------------------------------------------------------------------
+
 const WHATSAPP_NUMBER = '917016531812';
 
 const socialLinks: SocialLinkProps[] = [
@@ -276,6 +293,10 @@ const socialLinks: SocialLinkProps[] = [
     description: 'Share your experience'
   }
 ];
+
+// -----------------------------------------------------------------------------
+// APP COMPONENT
+// -----------------------------------------------------------------------------
 
 const App: React.FC = () => {
   return (
@@ -345,7 +366,10 @@ const App: React.FC = () => {
   );
 };
 
-// --- MOUNTING ---
+// -----------------------------------------------------------------------------
+// MOUNTING
+// -----------------------------------------------------------------------------
+
 const rootElement = document.getElementById('root');
 if (!rootElement) {
   throw new Error("Could not find root element to mount to");
