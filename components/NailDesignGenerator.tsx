@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Sparkles, ArrowRight, Loader2, Info } from 'lucide-react';
-import { generateNailArtImage } from '../services/geminiService';
-import { LoadingState } from '../types';
+import { generateNailArtImage } from '../services/geminiService.ts';
+import { LoadingState } from '../types.ts';
 
 export const NailDesignGenerator: React.FC = () => {
   const [prompt, setPrompt] = useState('');

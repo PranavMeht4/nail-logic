@@ -6,6 +6,19 @@
     <title>Nail Logic by Miral Mehta</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+    
+    <!-- Babel for in-browser JSX/TSX transformation -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Polyfill for process.env to prevent crashes -->
+    <script>
+      window.process = {
+        env: {
+          API_KEY: '' // Note: AI features will require a key here or a proper build setup
+        }
+      };
+    </script>
+
     <script>
       tailwind.config = {
         theme: {
@@ -78,14 +91,17 @@
         border: 1px solid rgba(255, 255, 255, 0.4);
       }
     </style>
-  <script type="importmap">
+    
+    <!-- Import Map using standard ESM CDNs -->
+    <script type="importmap">
 {
   "imports": {
-    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
-    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
-    "react": "https://aistudiocdn.com/react@^19.2.0",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/"
+    "react": "https://esm.sh/react@18.2.0",
+    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+    "lucide-react": "https://esm.sh/lucide-react@0.263.1",
+    "@google/genai": "https://esm.sh/@google/genai",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/"
   }
 }
 </script>
@@ -93,6 +109,7 @@
   <body class="bg-stone-50 min-h-screen selection:bg-stone-200 selection:text-stone-900">
     <div class="bg-noise"></div>
     <div id="root"></div>
-    <script type="module" src="./index.tsx"></script>
+    <!-- Note: type="text/babel" is crucial for in-browser transpilation -->
+    <script type="text/babel" data-presets="react,typescript" data-type="module" src="./index.tsx"></script>
   </body>
 </html>

@@ -8,9 +8,9 @@ import {
   MessageSquare,
   Sparkles
 } from 'lucide-react';
-import { SocialButton } from './components/SocialButton';
-import { NailDesignGenerator } from './components/NailDesignGenerator';
-import { SocialLinkProps } from './types';
+import { SocialButton } from './components/SocialButton.tsx';
+import { NailDesignGenerator } from './components/NailDesignGenerator.tsx';
+import { SocialLinkProps } from './types.ts';
 
 const WHATSAPP_NUMBER = '917016531812';
 

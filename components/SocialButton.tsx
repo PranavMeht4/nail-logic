@@ -1,5 +1,5 @@
 import React from 'react';
-import { SocialLinkProps } from '../types';
+import { SocialLinkProps } from '../types.ts';
 import { ArrowUpRight } from 'lucide-react';
 
 export const SocialButton: React.FC<SocialLinkProps> = ({ label, url, icon: Icon, description }) => {
