@@ -1,210 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nail Logic by Miral Mehta</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+    
+    <!-- Babel for in-browser JSX/TSX transformation -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Polyfill for process.env -->
+    <script>
+      window.process = {
+        env: {
+          API_KEY: '' 
+        }
+      };
+    </script>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              serif: ['"Playfair Display"', 'serif'],
+              sans: ['"DM Sans"', 'sans-serif'],
+            },
+            colors: {
+              stone: {
+                50: '#fafaf9',
+                100: '#f5f5f4',
+                200: '#e7e5e4',
+                300: '#d6d3d1',
+                400: '#a8a29e',
+                500: '#78716c',
+                800: '#292524',
+                900: '#1c1917',
+              },
+              rose: {
+                100: '#ffe4e6',
+                200: '#fecdd3',
+                300: '#fda4af',
+                900: '#881337',
+              }
+            },
+            animation: {
+              'fade-in': 'fadeIn 0.8s ease-out forwards',
+              'slide-up': 'slideUp 0.6s ease-out forwards',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
+              },
+              slideUp: {
+                '0%': { transform: 'translateY(20px)', opacity: '0' },
+                '100%': { transform: 'translateY(0)', opacity: '1' },
+              }
+            }
+          }
+        }
+      }
+    </script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #ffeef8 0%, #fff5f7 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 480px;
-            width: 100%;
-            background: white;
-            border-radius: 24px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
-            overflow: hidden;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
-            padding: 40px 30px;
-            text-align: center;
-            color: white;
-        }
-
-        .header h1 {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            letter-spacing: -0.5px;
-        }
-
-        .header p {
-            font-size: 16px;
-            opacity: 0.95;
-            font-weight: 500;
-        }
-
-        .links {
-            padding: 30px 24px;
-        }
-
-        .link-item {
-            display: flex;
-            align-items: center;
-            padding: 18px 20px;
-            margin-bottom: 14px;
-            background: #fafafa;
-            border-radius: 16px;
-            text-decoration: none;
-            color: #333;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .link-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 107, 157, 0.15);
-            border-color: #ff6b9d;
-            background: white;
-        }
-
-        .link-item:active {
-            transform: translateY(0);
-        }
-
-        .icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 16px;
-            flex-shrink: 0;
-            font-size: 24px;
-        }
-
-        .whatsapp { background: #25D366; }
-        .instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
-        .google { background: #4285F4; }
-        .maps { background: #34A853; }
-        .youtube { background: #FF0000; }
-
-        .link-text {
-            flex: 1;
-        }
-
-        .link-title {
-            font-weight: 600;
-            font-size: 16px;
-            margin-bottom: 2px;
-            color: #1a1a1a;
-        }
-
-        .link-subtitle {
-            font-size: 13px;
-            color: #666;
-        }
-
-        .arrow {
-            color: #999;
-            font-size: 20px;
-            transition: transform 0.3s ease;
-        }
-
-        .link-item:hover .arrow {
-            transform: translateX(4px);
-            color: #ff6b9d;
-        }
-
-        @media (max-width: 480px) {
-            .header h1 {
-                font-size: 24px;
-            }
-
-            .header p {
-                font-size: 14px;
-            }
-
-            .links {
-                padding: 24px 18px;
-            }
-
-            .link-item {
-                padding: 16px 18px;
-            }
-
-            .icon {
-                width: 40px;
-                height: 40px;
-                font-size: 22px;
-            }
-
-            .link-title {
-                font-size: 15px;
-            }
-        }
+      body {
+        font-family: 'DM Sans', sans-serif;
+        background-color: #fafaf9;
+        color: #1c1917;
+      }
+      .font-serif {
+        font-family: 'Playfair Display', serif;
+      }
+      /* Subtle noise texture */
+      .bg-noise {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 50;
+        opacity: 0.03;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      }
     </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>💅 Nail Logic</h1>
-            <p>by Miral Mehta</p>
-        </div>
-        
-        <div class="links">
-            <a href="https://wa.me/917016531812" class="link-item" target="_blank" rel="noopener">
-                <div class="icon whatsapp">💬</div>
-                <div class="link-text">
-                    <div class="link-title">WhatsApp</div>
-                    <div class="link-subtitle">Chat with us</div>
-                </div>
-                <div class="arrow">→</div>
-            </a>
-
-            <a href="https://www.instagram.com/naillogic_?igsh=Z3QzYjdpMjZkZjF2&utm_source=qr" class="link-item" target="_blank" rel="noopener">
-                <div class="icon instagram">📸</div>
-                <div class="link-text">
-                    <div class="link-title">Instagram</div>
-                    <div class="link-subtitle">@naillogic_</div>
-                </div>
-                <div class="arrow">→</div>
-            </a>
-
-            <a href="https://share.google/atYnn1ueXubRQMgyN" class="link-item" target="_blank" rel="noopener">
-                <div class="icon google">⭐</div>
-                <div class="link-text">
-                    <div class="link-title">Google Profile</div>
-                    <div class="link-subtitle">Find us on Google</div>
-                </div>
-                <div class="arrow">→</div>
-            </a>
-
-            <a href="https://maps.app.goo.gl/cuYYxd4jJe3t3JSw6?g_st=ipc" class="link-item" target="_blank" rel="noopener">
-                <div class="icon maps">📍</div>
-                <div class="link-text">
-                    <div class="link-title">Location</div>
-                    <div class="link-subtitle">Get directions</div>
-                </div>
-                <div class="arrow">→</div>
-            </a>
-
-            <a href="https://youtube.com/@naillogic7171?si=Y5URwuhWRpIMt8MC" class="link-item" target="_blank" rel="noopener">
-                <div class="icon youtube">▶️</div>
-                <div class="link-text">
-                    <div class="link-title">YouTube</div>
-                    <div class="link-subtitle">Watch our videos</div>
-                </div>
-                <div class="arrow">→</div>
-            </a>
-        </div>
-    </div>
-</body>
+    
+    <!-- Import Map -->
+    <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.2.0",
+    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+    "lucide-react": "https://esm.sh/lucide-react@0.263.1?deps=react@18.2.0",
+    "@google/genai": "https://esm.sh/@google/genai",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/"
+  }
+}
+</script>
+  </head>
+  <body class="bg-stone-50 min-h-screen selection:bg-stone-200 selection:text-stone-900">
+    <div class="bg-noise"></div>
+    <div id="root"></div>
+    <!-- Load the single monolithic file -->
+    <script type="text/babel" data-presets="react,typescript" src="./index.tsx"></script>
+  </body>
 </html>
