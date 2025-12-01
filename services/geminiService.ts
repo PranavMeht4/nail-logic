@@ -1,14 +1,17 @@
 import { GoogleGenAI } from "@google/genai";
 
-// Initialize Gemini API Client
-// Using the API key from environment variables as strictly required
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// We initialize the client inside the functions to prevent top-level crashes
+// if the environment variable process.env.API_KEY is not immediately available during static site generation.
 
 /**
  * Generates a nail art image based on a user prompt using Gemini 2.5 Flash Image.
  */
 export const generateNailArtImage = async (prompt: string): Promise<string | null> => {
   try {
+    // Initialize Gemini API Client
+    // Using the API key from environment variables as strictly required
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+
     const fullPrompt = `Professional nail art design, macro photography style, high resolution, realistic texture. The design should be: ${prompt}`;
 
     const response = await ai.models.generateContent({
@@ -50,6 +53,7 @@ export const generateNailArtImage = async (prompt: string): Promise<string | nul
  */
 export const generateNailArtSuggestion = async (mood: string): Promise<string> => {
     try {
+        const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
         const response = await ai.models.generateContent({
             model: 'gemini-2.5-flash',
             contents: `Suggest a unique and trendy nail art design description for a client who wants something related to: "${mood}". Keep it concise, under 50 words, and focused on visual details.`,
